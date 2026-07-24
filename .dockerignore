@@ -1,0 +1,15 @@
+# Keep the build image small and private.
+.git
+.venv
+**/__pycache__
+**/*.pyc
+.pytest_cache
+node_modules
+web/dist
+web/node_modules
+.env
+*.jpeg
+*.jpg
+*.png
+uploads/
+refluxcare-demo.html

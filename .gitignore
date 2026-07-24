@@ -1,0 +1,20 @@
+.env
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+node_modules/
+dist/
+.DS_Store
+
+# Personal medical files are local-only.
+*.jpeg
+*.jpg
+*.png
+uploads/
+
+# Local-only extras
+refluxcare-demo.html
+*.tsbuildinfo
+server/static/
+
