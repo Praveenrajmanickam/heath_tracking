@@ -311,11 +311,11 @@ export default function App() {
     }
   }
 
-  async function undoLastBurp() {
-    const lastBurp = summary?.events.find((e) => e.event_type === "burp");
-    if (!lastBurp) return;
+  async function removeLatest(type: EventType, message: string) {
+    const latest = summary?.events.find((e) => e.event_type === type);
+    if (!latest) return;
     try {
-      const res = await fetch(`${API_URL}/events/${lastBurp.id}`, {
+      const res = await fetch(`${API_URL}/events/${latest.id}`, {
         method: "DELETE",
         headers: authHeaders(),
       });
@@ -325,10 +325,14 @@ export default function App() {
       }
       if (!res.ok && res.status !== 204) throw new Error("Could not undo.");
       await refresh();
-      showToast("Removed last burp");
+      showToast(message);
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Something went wrong.");
     }
+  }
+
+  function undoLastBurp() {
+    void removeLatest("burp", "Removed last burp");
   }
 
   function openSheet(kind: EventType) {
@@ -494,14 +498,27 @@ export default function App() {
           )}
         </div>
 
-        <button className="water-btn" onClick={addWater} disabled={busy}>
-          <span className="water-left">
-            <i>💧</i> Had water — a glass
-          </span>
-          <span className="water-count">
-            <b>{waterCount}</b> today
-          </span>
-        </button>
+        <div className="water-row">
+          <button className="water-btn" onClick={addWater} disabled={busy}>
+            <span className="water-left">
+              <i>💧</i> Had water — a glass
+            </span>
+            <span className="water-count">
+              <b>{waterCount}</b> today
+            </span>
+          </button>
+          {waterCount > 0 && (
+            <button
+              className="water-undo"
+              onClick={() => removeLatest("water", "Removed last water")}
+              disabled={busy}
+              aria-label="Undo last glass of water"
+              title="Undo last glass of water"
+            >
+              ↩
+            </button>
+          )}
+        </div>
 
         {sheetKind && (
           <form className="sheet-inner" onSubmit={submitSheet}>

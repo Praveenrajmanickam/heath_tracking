@@ -166,11 +166,17 @@ section { margin-top: 24px; }
 }
 
 /* ============ Water button ============ */
-.water-btn { width: 100%; margin-top: 9px; display: flex; align-items: center; justify-content: space-between;
+.water-row { display: flex; gap: 8px; margin-top: 9px; }
+.water-btn { flex: 1; display: flex; align-items: center; justify-content: space-between;
   border: 1px solid var(--hair); background: var(--surface); border-radius: 18px; padding: 13px 16px;
   color: var(--ink); font-size: .86rem; font-weight: 600; transition: transform .12s, border-color .2s; }
 .water-btn:active { transform: scale(.98); border-color: var(--water); }
 .water-btn:disabled { opacity: .7; }
+.water-undo { flex: 0 0 52px; border: 1px solid var(--hair); background: var(--surface); border-radius: 18px;
+  color: var(--water); font-size: 1.2rem; display: grid; place-items: center;
+  transition: transform .12s, border-color .2s; }
+.water-undo:active { transform: scale(.94); border-color: var(--water); }
+.water-undo:disabled { opacity: .6; }
 .water-left { display: flex; align-items: center; gap: 10px; }
 .water-left i { font-style: normal; width: 34px; height: 34px; border-radius: 11px; background: #d3e6f2;
   display: grid; place-items: center; font-size: 1.05rem; }
